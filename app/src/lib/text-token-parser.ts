@@ -348,19 +348,14 @@ export class Tokenizer {
           if (match) {
             i = match.nextIndex
           }
+          else if (element == 'h') {
+            i = this.inspectAndMove(element, i, () =>
+              this.scanForHyperlink(text, i, repository)
+            )
+          }
           else {
-            switch (element) {
-              case 'h':
-                i = this.inspectAndMove(element, i, () =>
-                  this.scanForHyperlink(text, i, repository)
-                )
-                break
-
-              default:
-                this.append(element)
-                i++
-                break
-            }
+            this.append(element)
+            i++
           }
           break
       }
